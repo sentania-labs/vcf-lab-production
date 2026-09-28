@@ -13,14 +13,3 @@ module "machine" {
   image_disk_constraints      = each.value.image_disk_constraints
   tags                        = each.value.tags
 }
-
-#create dns Names
-module "machine_dns_names" {
-  source  = "sentania-labs/msdns/dns"
-  version = "0.1.0"
-
-  for_each  = module.machine
-  hostname  = each.value.virtual_machine.name
-  zone      = "int.sentania.net."
-  addresses = ["${each.value.virtual_machine.ipaddr}"]
-}
