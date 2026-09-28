@@ -6,7 +6,7 @@ on:
 jobs:
   destroy:
     if: github.repository != 'sentania-labs/vcf-lab-application-template'
-    runs-on: [self-hosted, terraform]
+    runs-on: lab
 
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -22,6 +22,11 @@ jobs:
       TF_VAR_project_name: ${{ secrets.VCFA_PROJECT_NAME}}
       TF_VAR_vcfa_organization: ${{ secrets.VCFA_ORGANIZATION_NAME}}
       TF_VAR_vcfa_url: ${{ vars.VCFA_URL}}
+      TF_VAR_dns_server: ${{ secrets.DNS_SERVER }}
+      TF_VAR_krb_realm: ${{ secrets.KRB_REALM }}
+      TF_VAR_serviceAccountUserName: ${{ secrets.KRB_SERVICE_USER }}
+      TF_VAR_serviceAccountPassword: ${{ secrets.SERVICEACCOUNTPASSWORD }}
+      KRB5_CONFIG: ${{ secrets.KRB5_CONF }}
 
     steps:
       - name: Checkout repository
