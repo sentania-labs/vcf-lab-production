@@ -136,20 +136,27 @@ You'll be prompted to confirm destruction. After destroy completes:
 
 ## 📌 State Backend Details
 
-This template expects Terraform state in S3:
+Terraform state lives on the lab S3 (versitygw on the Synology, HTTPS), not AWS:
 
 ```hcl
 terraform {
   backend "s3" {
-    bucket         = "sentania-labs-terraform-state"
-    key            = "vra/<project-key>/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
-    encrypt        = true
-    use_lockfile   = true
+    bucket                      = "tfstate"
+    key                         = "vra/<project-key>/terraform.tfstate" # set at init by CI
+    region                      = "us-east-1"
+    endpoints                   = { s3 = "https://s3.int.sentania.net:9443" }
+    use_path_style              = true
+    use_lockfile                = true
+    skip_credentials_validation = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_metadata_api_check     = true
   }
 }
 ```
+
+Credentials come from the `TF_STATE_S3_*` org secrets. Moved from the AWS
+bucket `sentania-labs-terraform-state` on 2026-09-28 (same key).
 
 The `<project-key>` is generated dynamically in CI based on:
 
