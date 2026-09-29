@@ -107,8 +107,8 @@ Ensure the following secrets or vars are configured in the repo or org:
 | Name                        | Purpose |
 |-----------------------------|---------|
 | `VCFA_REFRESH_TOKEN`        | Aria / VCFA Auth |
-| `AWS_ACCESS_KEY_ID`         | S3 Backend |
-| `AWS_SECRET_ACCESS_KEY`     | S3 Backend |
+| `TF_STATE_S3_ACCESS_KEY_ID`     | State backend (lab S3), org secret |
+| `TF_STATE_S3_SECRET_ACCESS_KEY` | State backend (lab S3), org secret |
 | `VCFA_PROJECT_NAME`         | Project name |
 | `VCFA_PROJECT_ID`           | Globally unique project ID |
 
